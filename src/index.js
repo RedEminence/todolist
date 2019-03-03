@@ -41,7 +41,7 @@ const project = (() => {
 							<h2>Add a new task</h2>
 						</div>
 						<div class="modal-body">
-							<label>name<input type="text" name="name" class="name"></label>
+							<label>Name<input type="text" name="name" class="name"></label>
 							<label>Description<textarea class="description"></textarea></label>
 							<label>Priority
 								<select class="priority">
@@ -118,7 +118,7 @@ const task = (() => {
 							<h2>Editing a task</h2>
 						</div>
 						<div class="modal-body">
-							<label>name<input type="text" name="name" class="name"></label>
+							<label>Name<input type="text" name="name" class="name"></label>
 							<label>Description<textarea class="description"></textarea></label>
 							<label>Priority
 								<select class="priority">
