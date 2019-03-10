@@ -2,7 +2,7 @@ import './style/app.css';
 
 
 const project = (() => {
-	const projectsList = [];
+	const projectsList = localStorage.getItem('projectsList') ? JSON.parse(localStorage.getItem('projectsList')) : [];
 
 	const projectsFactory = (name, tasks = []) => {
 		return { name, tasks };
@@ -17,6 +17,7 @@ const project = (() => {
 		projectsList.push(projectsFactory(nameVal));
 		renderProjects();
 		task.renderAllTasks();
+		localStorage.setItem('projectsList', JSON.stringify(projectsList));
 		return projectsList;
 	}
 
@@ -41,7 +42,7 @@ const project = (() => {
 							<h2>Add a new task</h2>
 						</div>
 						<div class="modal-body">
-							<label>Name<input type="text" name="name" class="name"></label>
+							<label>name<input type="text" name="name" class="name"></label>
 							<label>Description<textarea class="description"></textarea></label>
 							<label>Priority
 								<select class="priority">
@@ -67,7 +68,7 @@ const project = (() => {
 		projectsList.splice(index, 1);
 		renderProjects();
 		task.renderAllTasks();
-		localStorage.clear();
+		localStorage.setItem('projectsList', JSON.stringify(projectsList));
 	}
 
 	return { projectsList, projectsFactory, addProject, renderProjects, deleteProject };
@@ -90,6 +91,7 @@ const task = (() => {
 			return;
 		}
 		currentProject.tasks.push(taskFactory(nameVal, descriptionVal, priorityVal, dueDateVal));
+		localStorage.setItem('projectsList', JSON.stringify(project.projectsList));
 	}
 
 	const renderTask = (index) => {
@@ -118,7 +120,7 @@ const task = (() => {
 							<h2>Editing a task</h2>
 						</div>
 						<div class="modal-body">
-							<label>Name<input type="text" name="name" class="name"></label>
+							<label>name<input type="text" name="name" class="name"></label>
 							<label>Description<textarea class="description"></textarea></label>
 							<label>Priority
 								<select class="priority">
@@ -154,12 +156,14 @@ const task = (() => {
 		currentTask.description = newDescription;
 		currentTask.priority = newPriority;
 		currentTask.dueDate = newDueDate;
+		localStorage.setItem('projectsList', JSON.stringify(project.projectsList));
 		task.renderAllTasks();
 	}
 
 	const deleteTask = (index, projectIndex) => {
 		const currentProject = project.projectsList[projectIndex];
 		currentProject.tasks.splice(index, 1);
+		localStorage.setItem('projectsList', JSON.stringify(project.projectsList));
 		renderAllTasks();
 	}
 
